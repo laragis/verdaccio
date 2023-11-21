@@ -1,0 +1,24 @@
+version: '3.9'
+
+networks:
+  proxy_overlay:
+    external: true
+      
+services:
+  verdaccio:
+    image: ttungbmt/verdaccio:${VDC_VERSION}
+    build:
+      args:
+        - VDC_VERSION=${VDC_VERSION}
+    restart: unless-stopped
+    working_dir: /verdaccio
+    environment:
+      - VERDACCIO_PUBLIC_URL=${VDC_PUBLIC_URL}
+    ports:
+      - '${VDC_FORWARD_PORT}:4873'
+    volumes:
+      - ./conf:/verdaccio/conf
+      # - ./storage:/verdaccio/storage
+      - ./plugins:/verdaccio/plugins
+    networks:
+      - proxy_overlay
