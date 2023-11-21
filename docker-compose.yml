@@ -6,10 +6,7 @@ networks:
       
 services:
   verdaccio:
-    image: ttungbmt/verdaccio:${VDC_VERSION}
-    build:
-      args:
-        - VDC_VERSION=${VDC_VERSION}
+    image: verdaccio/verdaccio
     restart: unless-stopped
     working_dir: /verdaccio
     environment:
